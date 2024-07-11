@@ -14,6 +14,23 @@ public class GlobalExceptionHandler {
 		return new ApiException(404,exception.getMessage() , ZonedDateTime.now());
 	}
 	
+	@ExceptionHandler(InvalidInputException.class)
+	public ApiException invalidInputExceptionHandler(InvalidInputException exception)
+	{
+		return new ApiException(400,exception.getMessage() , ZonedDateTime.now());
+	}
+	
+	@ExceptionHandler(EmployeeManagementException.class)
+	public ApiException EmployeeManagementExceptionHandler(EmployeeManagementException exception)
+	{
+		return new ApiException(400,exception.getMessage() , ZonedDateTime.now());
+	}
+	
+	@ExceptionHandler(RuntimeException.class)
+	public ApiException ExceptionHandler(RuntimeException exception)
+	{
+		return new ApiException(500,exception.getMessage() , ZonedDateTime.now());
+	}
 	
 	
 }
