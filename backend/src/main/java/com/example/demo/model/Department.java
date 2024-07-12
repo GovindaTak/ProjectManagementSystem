@@ -3,10 +3,15 @@ package com.example.demo.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -18,12 +23,18 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "departments")
+@Table(name = "departments",indexes = {@Index(name="name_index",columnList = "name")})
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString(exclude = {"employee","project"})
 public class Department extends BaseModel {
+	
+	
+	@jakarta.validation.constraints.NotBlank(message = "Department name required !!")
+	@Column(length = 200,nullable = false,unique = true)
+	@Length(min = 2,max = 200,message = "department length should be >=2 and <= 200 character !!")
+	private String name;
 	@OneToMany(mappedBy = "department",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
 	private List<Employee> employee; 
 	@ManyToMany
@@ -32,9 +43,16 @@ public class Department extends BaseModel {
 
 
 
-	public Department(Long id, String name, LocalDateTime createdAt, LocalDateTime updatedAt) {
-		super(id, name, createdAt, updatedAt);
+	public Department(Long id, String name) {
+		super(id);
 		// TODO Auto-generated constructor stub
+		this.name=name;
+	}
+	
+	public Department( String name) {
+		super();
+		// TODO Auto-generated constructor stub
+		this.name=name;
 	}
 	
 
