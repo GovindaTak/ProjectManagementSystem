@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.example.demo.model.enums.Designation;
+import com.example.demo.util.annotation.ValidDateOfBirth;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -19,6 +20,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -45,7 +47,7 @@ public class Employee extends BaseModel {
 	@Column(name = "contact_no")
 	@Pattern(regexp = "^[6-9]\\d{9}$")
 	private String contactNo;
-	
+	@ValidDateOfBirth(message = "age must be in between 18 to 60 years old !!")
 	@Past(message = "Date of birth must be in the past")
 	@Column(name = "dob",nullable = false)
 	private LocalDate dateOfBirth;
@@ -53,6 +55,13 @@ public class Employee extends BaseModel {
 	@Enumerated(EnumType.STRING)
 	@NotNull(message = "designation required !!")
 	private Designation designation;
+	@NotBlank(message = "email required !!")
+	@Email
+	private String email;
+	
+	@NotBlank(message = "password required !!")
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
+	private String password;
 	
 	@ManyToOne
 	@JoinColumn(name = "department_id",nullable = false)
