@@ -22,9 +22,15 @@ public abstract class BaseModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
+	
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+	public BaseModel(Long id) {
+		super();
+		this.id = id;
+		createdAt=LocalDateTime.now();
+		updatedAt=LocalDateTime.now();
+	}
 	
 
 }
