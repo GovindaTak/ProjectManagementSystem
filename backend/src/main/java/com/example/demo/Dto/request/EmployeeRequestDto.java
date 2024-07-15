@@ -26,7 +26,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class EmployeeRequestDTO {
+public class EmployeeRequestDto {
 
     @NotBlank(message = "Employee name required !!")
     @Length(max = 255, min = 2, message = "max. name <=255 and >=2 character required !!")

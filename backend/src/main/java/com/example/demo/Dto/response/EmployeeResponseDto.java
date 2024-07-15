@@ -51,7 +51,7 @@ public class EmployeeResponseDto  {
 	
 	private Designation designation;
 	
-	
+	private DepartmentResponseDto department;
 	
 	
 	private Address address;
