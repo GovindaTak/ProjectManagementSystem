@@ -12,16 +12,16 @@ import com.example.demo.Dto.response.ProjectResponseDto;
 
 public interface DepartmentService {
 	
-	public ResponseEntity<DepartmentResponseDto> getDepartment(Long id);
-	public ResponseEntity<FullDepartmentResponse> getAllDetailsOfDepartment(Long id);
+	public ResponseEntity<DepartmentResponseDto> getDepartment(long id);
+	public ResponseEntity<FullDepartmentResponse> getAllDetailsOfDepartment(long id);
 	
 	public ResponseEntity<List<DepartmentResponseDto>> getListOfDepartment();
 	
-	public ResponseEntity<DepartmentResponseDto> removeDepartment();
+	public ResponseEntity<DepartmentResponseDto> removeDepartment(long id);
 	
-	public ResponseEntity<DepartmentResponseDto> updateDepartment(Long id,DepartmentRequestDto department);
+	public ResponseEntity<DepartmentResponseDto> updateDepartment(long id,DepartmentRequestDto department);
 	
-	public ResponseEntity<List<ProjectResponseDto>> getProjects(Long id);
+	public ResponseEntity<List<ProjectResponseDto>> getProjects(long id);
 	
 	public ResponseEntity<DepartmentResponseDto> createDepartment(DepartmentRequestDto newDepartment);
 	

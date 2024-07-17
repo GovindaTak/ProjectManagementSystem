@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.CascadeType;
@@ -37,6 +38,7 @@ public class Department extends BaseModel {
 	private String name;
 	@OneToMany(mappedBy = "department",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
 	private List<Employee> employee; 
+	
 	@ManyToMany
 	@JoinTable(name = "departments_projects",joinColumns = @JoinColumn(name="project_id",nullable = false),inverseJoinColumns = @JoinColumn(name="department_id",nullable = false))
 	private List<Project> project;
