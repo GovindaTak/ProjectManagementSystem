@@ -73,7 +73,11 @@ public class DepartmentServiceImplement implements DepartmentService {
 	@Override
 	public ResponseEntity<DepartmentResponseDto> removeDepartment(long id) {
 		// TODO Auto-generated method stub
-	DepartmentResponseDto dept=map.map(departmentDao.findById(id).orElseThrow(()-> new ResourceNotFoundException("Department not found for this id :: " + id)),DepartmentResponseDto.class);	
+		Department d=departmentDao.findById(id).orElseThrow(()-> new ResourceNotFoundException("Department not found for this id :: " + id));
+	DepartmentResponseDto dept=map.map(d,DepartmentResponseDto.class);	
+	d.getEmployee().forEach(e->d.removeEmployee(e));
+	d.getProject().forEach(p->d.removeProject(p));
+	
 	departmentDao.deleteById(id);
 		return new ResponseEntity<DepartmentResponseDto>(dept,HttpStatus.OK);
 	}
@@ -102,6 +106,8 @@ public class DepartmentServiceImplement implements DepartmentService {
 	public ResponseEntity<DepartmentResponseDto> createDepartment(DepartmentRequestDto newDepartment) {
 		// TODO Auto-generated method stub
 		Department dept=new Department(newDepartment.getName());
+		dept.setCreatedAt(LocalDateTime.now());
+		dept.setUpdatedAt(LocalDateTime.now());
 		return  new ResponseEntity<DepartmentResponseDto>(map.map(departmentDao.save(dept),DepartmentResponseDto.class ),HttpStatus.CREATED);
 		
 	}

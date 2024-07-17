@@ -10,6 +10,7 @@ import com.example.demo.model.Address;
 import com.example.demo.model.enums.Designation;
 import com.example.demo.util.annotation.ValidDateOfBirth;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -54,7 +55,16 @@ public class EmployeeRequestDto {
     @NotNull(message = "Department required !!")
     private Long departmentId;
 
- 
-
-    private Address address;
+    @Length(min = 2,max = 255,message = "min 2 and max 255 char required !!")
+    @NotNull(message = "Address needed !!")
+	private String address;
+    @Length(min = 2,max = 50,message = "min 2 and max 50 char required !!")
+	@NotBlank(message = "state required !!")
+	private String state;
+    @Length(min = 2,max = 50,message = "min 2 and max 50 char required !!")
+	@NotBlank(message = "country required !!")
+	private String country;
+	
+	@Pattern(regexp = "^[1-9][0-9]{5}$")
+	private String pinCode;
 }

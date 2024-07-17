@@ -73,13 +73,29 @@ public class Employee extends BaseModel {
 	
 	@Embedded
 	private Address address;
-	
-	public Employee(Long id, String name) {
-		super(id);
-		
-		// TODO Auto-generated constructor stub
-	}
 
+	public Employee(
+			@NotBlank(message = "Employee name required !!") @Length(max = 255, min = 2, message = "max. name <=255 and >=2 character required !!") String name,
+			@Pattern(regexp = "^[6-9]\\d{9}$") String contactNo,
+			@Past(message = "Date of birth must be in the past") LocalDate dateOfBirth,
+			@NotNull(message = "designation required !!") Designation designation,
+			@NotBlank(message = "email required !!") @Email String email,
+			@NotBlank(message = "password required !!") @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$") String password,
+			Address address) {
+		super();
+		this.name = name;
+		this.contactNo = contactNo;
+		this.dateOfBirth = dateOfBirth;
+		this.designation = designation;
+		this.email = email;
+		this.password = password;
+		this.address = address;
+		
+	}
+	
+
+
+	
 	
 
 	
