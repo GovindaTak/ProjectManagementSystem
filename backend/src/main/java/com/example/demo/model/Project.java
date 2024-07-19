@@ -58,5 +58,16 @@ public class Project extends BaseModel {
 		this.name=name;
 	}
 	
+	public void addEmployee(Employee emp)
+	{
+		this.getEmployee().add(emp);
+		emp.getProject().add(this);
+	}
+	public void removeEmployee(Employee emp)
+	{
+		this.getEmployee().remove(emp);
+		emp.getProject().remove(this);
+	}
+	
 	
 }
