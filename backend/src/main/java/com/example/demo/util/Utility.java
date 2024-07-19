@@ -18,4 +18,15 @@ public final class Utility {
 	Map uploadResult=	cloud.uploader().upload(image.getBytes(), ObjectUtils.asMap("folder","Project_Management_System"));
 	return uploadResult.get("url").toString();
 	}
+	
+	public static void removeImage(String url)
+	{
+		String[] urlParts =url.split("/");
+		
+		String publicIdWithExtension=urlParts[urlParts.length-1];
+		String publicId=publicIdWithExtension.split("//.")[0];
+		
+		Map result=cloud.uploader().destroy(publicId, ObjectUtils.asMap("folder","Project_Management_System");
+	}
+	
 }

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.example.demo.model.enums.Designation;
@@ -62,10 +63,14 @@ public class Employee extends BaseModel {
 	@NotBlank(message = "password required !!")
 	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
 	private String password;
+	@URL(message = "image url required !!")
+	private String image;
 	
 	@ManyToOne
 	@JoinColumn(name = "department_id",nullable = false)
 	private Department department;
+	
+	
 	
 	@ManyToMany
 	@JoinTable(name = "projects_employees",joinColumns = @JoinColumn(name="employee_id",nullable = false),inverseJoinColumns = @JoinColumn(name="project_id",nullable = false))
