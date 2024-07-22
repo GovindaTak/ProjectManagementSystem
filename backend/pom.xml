@@ -42,6 +42,11 @@
     <artifactId>cloudinary-http44</artifactId>
     <version>1.29.0</version>
 </dependency>
+<dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.4</version> <!-- Add the correct version -->
+</dependency>
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>

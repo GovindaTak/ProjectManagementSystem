@@ -21,6 +21,7 @@ import com.example.demo.model.Employee;
 import com.example.demo.repository.DepartmentRepository;
 import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.service.interfaces.EmployeeService;
+import com.example.demo.util.Utility;
 
 import jakarta.transaction.Transactional;
 @Transactional
@@ -32,6 +33,8 @@ public class EmployeeServiceimplementation implements EmployeeService {
 	private DepartmentRepository departmentDao;
 	@Autowired
 	private ModelMapper map;
+	@Autowired
+	private Utility utility; 
 
 	@Override
 	public ResponseEntity<EmployeeResponseDto> getEmployee(Long id) {
@@ -44,6 +47,11 @@ return new ResponseEntity<EmployeeResponseDto>(map.map(employeeDao.findById(id).
 	public ResponseEntity<EmployeeResponseDto> updateEmployee(Long id, EmployeeRequestDto employee) {
 		// TODO Auto-generated method stub
 		Employee e=employeeDao.findById(id).orElseThrow(()->new ResourceNotFoundException("No Any Employee registered with this id :: "+id));
+		if(employee.getProfilePicture()!=null)
+		{	String imageUrl=utility.uploadImage(employee.getProfilePicture());
+		utility.removeImage(e.getImage());
+		e.setImage(imageUrl);
+		}
 		map.map(employee, e);
 		return new ResponseEntity<EmployeeResponseDto>(map.map(e, EmployeeResponseDto.class),HttpStatus.ACCEPTED);
 	}
@@ -53,6 +61,7 @@ return new ResponseEntity<EmployeeResponseDto>(map.map(employeeDao.findById(id).
 		// TODO Auto-generated method stub
 	Employee emp=employeeDao.findById(id).orElseThrow(()->new ResourceNotFoundException("No Any Employee registered with this id :: "+id));
 	emp.getDepartment().removeEmployee(emp);
+	utility.removeImage(emp.getImage());
 		return new ResponseEntity<EmployeeResponseDto>(map.map(emp, EmployeeResponseDto.class),HttpStatus.OK);
 	}
 
@@ -72,7 +81,8 @@ return new ResponseEntity<EmployeeResponseDto>(map.map(employeeDao.findById(id).
 	
 		//Employee emp=map.map(newEmployee, Employee.class);
 		Address address=new Address(newEmployee.getAddress(),newEmployee.getState(),newEmployee.getCountry(),newEmployee.getPinCode());
-		Employee emp=new Employee(newEmployee.getName(),newEmployee.getContactNo(),newEmployee.getDateOfBirth(),newEmployee.getDesignation(),newEmployee.getEmail(),newEmployee.getPassword(),address);
+		String imageUrl=utility.uploadImage(newEmployee.getProfilePicture());
+		Employee emp=new Employee(newEmployee.getName(),newEmployee.getContactNo(),newEmployee.getDateOfBirth(),newEmployee.getDesignation(),newEmployee.getEmail(),newEmployee.getPassword(),address,imageUrl);
 		System.out.println(emp+" ... in emp service create !!");
 		dept.addEmployee(emp);
 		employeeDao.save(emp);

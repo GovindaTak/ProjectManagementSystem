@@ -86,7 +86,7 @@ public class Employee extends BaseModel {
 			@NotNull(message = "designation required !!") Designation designation,
 			@NotBlank(message = "email required !!") @Email String email,
 			@NotBlank(message = "password required !!") @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$") String password,
-			Address address) {
+			Address address,String imageUrl) {
 		super();
 		this.name = name;
 		this.contactNo = contactNo;
@@ -95,7 +95,7 @@ public class Employee extends BaseModel {
 		this.email = email;
 		this.password = password;
 		this.address = address;
-		
+		this.image=imageUrl;
 	}
 	
 

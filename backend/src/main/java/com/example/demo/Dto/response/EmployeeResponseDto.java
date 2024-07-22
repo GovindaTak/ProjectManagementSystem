@@ -56,7 +56,7 @@ public class EmployeeResponseDto  {
 	
 	private Address address;
 	
-	
+	private String image;
 	
 
 	

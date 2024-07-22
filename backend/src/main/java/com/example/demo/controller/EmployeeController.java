@@ -3,9 +3,11 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,8 +35,8 @@ public class EmployeeController {
 		return empService.getEmployee(id);
 	}
 	
-	@PostMapping
-	public ResponseEntity<EmployeeResponseDto> registerEmployee(@RequestBody @Valid EmployeeRequestDto newEmployee)
+	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+public ResponseEntity<EmployeeResponseDto> registerEmployee(@ModelAttribute @Valid EmployeeRequestDto newEmployee)
 	{
 		return empService.addEmployee(newEmployee);
 	}
@@ -43,8 +45,8 @@ public class EmployeeController {
 	{
 		return empService.removeEmployee(id);
 	}
-	@PutMapping("/{id}")
-	public ResponseEntity<EmployeeResponseDto> updateEmployee(@RequestBody @Valid EmployeeRequestDto employee,@PathVariable long id)
+	@PutMapping(value = "/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<EmployeeResponseDto> updateEmployee(@ModelAttribute @Valid EmployeeRequestDto employee,@PathVariable long id)
 	{
 		
 		return empService.updateEmployee(id, employee);
